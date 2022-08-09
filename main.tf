@@ -155,7 +155,7 @@ resource "aws_db_instance" "mssql-rds" {
   vpc_security_group_ids    = ["${aws_security_group.rds-sg.id}"]
   identifier                = "${var.environment}-ada-outsystems-os-mssql"
   parameter_group_name      = "default.sqlserver-se-15.0"
-  option_group_name         = "sqlserver-se-15"
+  option_group_name         = "${var.environment}-sqlserver-se-15"
   depends_on                = [aws_db_option_group.optiongroup]
   port                      = "1433"
   final_snapshot_identifier = "abc"
