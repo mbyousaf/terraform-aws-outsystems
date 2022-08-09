@@ -67,7 +67,7 @@ resource "aws_lb_target_group" "Outsystems-lb-target-group" {
   health_check {
     interval            = 10
     path                = "/ServiceCenter/_ping.aspx"
-    protocol            = "HTTP"
+    protocol            = "HTTPS"
     timeout             = 5
     healthy_threshold   = 5
     unhealthy_threshold = 2
