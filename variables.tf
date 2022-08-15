@@ -9,6 +9,10 @@ variable "ec2_private_subnets" {
   type    = list(any)
   default = []
 }
+variable "ec2_public_subnets" {
+  type    = list(any)
+  default = []
+}
 variable "vpc_id" {
   default = ""
 }
@@ -16,7 +20,7 @@ variable "environment" {
   default = "dev"
 }
 variable "client" {
-  default = "Risk.Cloud"
+  default = "ADA"
 }
 variable "iam_instance_profile_ec2" {
   default = ""
@@ -44,15 +48,27 @@ variable "OSPlatformVersion" {
   default     = "11.16.0.35766"
 }
 
-###FrontEnd vars###
-variable "os_fe_ec2_count" {
+# ###FrontEnd vars###
+# variable "os_fe_ec2_count" {
+#   type    = number
+#   default = "1"
+# }
+# variable "os_fe_ami_id" {
+#   default = "ami-0bdccab4f28cb48db"
+# }
+# variable "os_fe_instance_type" {
+#   default = "m4.xlarge"
+# }
+
+###JumpServer vars###
+variable "os_js_ec2_count" {
   type    = number
   default = "1"
 }
-variable "os_fe_ami_id" {
+variable "os_js_ami_id" {
   default = "ami-0bdccab4f28cb48db"
 }
-variable "os_fe_instance_type" {
+variable "os_js_instance_type" {
   default = "m4.xlarge"
 }
 
@@ -83,7 +99,7 @@ variable "rds-instance-type" {
   default = "db.m5.large"
 }
 variable "multi-az" {
-  default = "true"
+  default = "false"
 }
 variable "skip-final-snapshot" {
   default = "true"

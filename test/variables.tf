@@ -9,14 +9,15 @@ variable "ec2_private_subnets" {
   type    = list(any)
   default = ["subnet-0e733f99bedfbd815", "subnet-0a262d0321e644fb6"]
 }
+variable "ec2_public_subnets" {
+  type    = list(string)
+  default = ["subnet-02e8004d05418ccbf", "subnet-0fafd21af22566bce"]
+}
 variable "vpc_id" {
   default = "vpc-0d116fb96a1dc6355"
 }
 variable "environment" {
   default = "dev"
-}
-variable "client" {
-  default = "Risk.Cloud"
 }
 variable "iam_instance_profile_ec2" {
   default = ""
@@ -44,18 +45,6 @@ variable "OSPlatformVersion" {
   default     = "11.11.2.29611"
 }
 
-###FrontEnd vars###
-variable "os_fe_ec2_count" {
-  type    = number
-  default = "1"
-}
-variable "os_fe_ami_id" {
-  default = "ami-0bdccab4f28cb48db"
-}
-variable "os_fe_instance_type" {
-  default = "m5.large"
-}
-
 ###elb vars###
 variable "elb_ssl_cert" {
   type    = string
@@ -64,31 +53,4 @@ variable "elb_ssl_cert" {
 variable "alb_public_subnets" {
   type    = list(any)
   default = ["subnet-02e8004d05418ccbf", "subnet-0fafd21af22566bce"]
-}
-
-###RDS vars###
-variable "rds-storage" {
-  default = "1000"
-}
-variable "rds-engine" {
-  default = "sqlserver-se"
-}
-variable "rds-engine-version" {
-  default = "15.00.4043.16.v1"
-}
-variable "rds-license-model" {
-  default = "license-included"
-}
-variable "rds-instance-type" {
-  default = "db.m5.2xlarge"
-}
-variable "multi-az" {
-  default = "true"
-}
-variable "skip-final-snapshot" {
-  default = "true"
-}
-variable "rds_private_subnets" {
-  type    = list(any)
-  default = ["subnet-0e733f99bedfbd815", "subnet-0a262d0321e644fb6"]
 }
