@@ -275,7 +275,7 @@ resource "aws_security_group" "rds-sg" {
     create_before_destroy = false
   }
   tags = {
-    Name               = "${var.environment}-ada-outsystems-elb-sg"
+    Name               = "${var.environment}-ada-outsystems-rds-sg"
     "APPID"            = ""
     "BILLINGCODE"      = ""
     "BILLINGCONTACT"   = "managedcloud@deloittecloud.uk"
