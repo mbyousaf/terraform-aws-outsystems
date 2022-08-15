@@ -69,7 +69,7 @@ variable "os_js_ami_id" {
   default = "ami-0bdccab4f28cb48db"
 }
 variable "os_js_instance_type" {
-  default = "m4.xlarge"
+  default = "t3.medium"
 }
 
 ###elb vars###
