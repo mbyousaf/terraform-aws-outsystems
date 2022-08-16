@@ -2,7 +2,7 @@
 #This template defines the security groups for the outsystems EC2's, ABL and RDS.
 
 ###The Deployment Controller EC2 Security Group###
-resource "aws_security_group" "DC-ec2-sg" {
+resource "aws_security_group" "dc_ec2_sg" {
   name        = "${var.environment}-ada-outsystems-dc-sg"
   vpc_id      = var.vpc_id
   description = "Deployment controller ec2 sercurity group"
@@ -34,14 +34,14 @@ resource "aws_security_group" "DC-ec2-sg" {
     from_port       = 433
     to_port         = 433
     protocol        = "tcp"
-    security_groups = ["${aws_security_group.elb-sg.id}"]
+    security_groups = ["${aws_security_group.elb_sg.id}"]
     description     = "Load balancer access to OS server"
   }
   ingress {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
-    security_groups = ["${aws_security_group.elb-sg.id}"]
+    security_groups = ["${aws_security_group.elb_sg.id}"]
     description     = "Load balancer access to OS server"
   }
   ingress {
@@ -90,8 +90,16 @@ resource "aws_security_group" "DC-ec2-sg" {
     cidr_blocks = ["10.2.0.0/16"]
     description = "Allow SSH traffic on the VPN range"
   }
+  ingress {
+    #SSH using RDP
+    from_port       = 3389
+    to_port         = 3389
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.js_ec2_sg.id}"]
+    description     = "Allow RDP traffic from the JumpServer"
+  }
   lifecycle {
-    create_before_destroy = false
+    create_before_destroy = true
   }
   tags = {
     Name               = "${var.environment}-ada-outsystems-dc-sg"
@@ -205,7 +213,7 @@ resource "aws_security_group" "DC-ec2-sg" {
 # }
 
 ###ELB-SG###
-resource "aws_security_group" "elb-sg" {
+resource "aws_security_group" "elb_sg" {
   name        = "${var.environment}-ada-outsystems-elb-sg"
   vpc_id      = var.vpc_id
   description = "Load balancer security group"
@@ -231,7 +239,7 @@ resource "aws_security_group" "elb-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   lifecycle {
-    create_before_destroy = false
+    create_before_destroy = true
   }
   tags = {
     Name               = "${var.environment}-ada-outsystems-elb-sg"
@@ -251,7 +259,7 @@ resource "aws_security_group" "elb-sg" {
   }
 }
 ###RDS-SG###
-resource "aws_security_group" "rds-sg" {
+resource "aws_security_group" "rds_sg" {
   name        = "${var.environment}-ada-outsystems-rds-sg"
   description = "Allow required traffic for RDS"
   vpc_id      = var.vpc_id
@@ -272,7 +280,7 @@ resource "aws_security_group" "rds-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   lifecycle {
-    create_before_destroy = false
+    create_before_destroy = true
   }
   tags = {
     Name               = "${var.environment}-ada-outsystems-rds-sg"
@@ -293,7 +301,7 @@ resource "aws_security_group" "rds-sg" {
 }
 
 ###The Jump Server EC2 Security Group###
-resource "aws_security_group" "JS-ec2-sg" {
+resource "aws_security_group" "js_ec2_sg" {
   name        = "${var.environment}-ada-outsystems-js-sg"
   vpc_id      = var.vpc_id
   description = "Jump Server ec2 sercurity group"
@@ -328,16 +336,8 @@ resource "aws_security_group" "JS-ec2-sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  egress {
-    #SSH using RDP
-    from_port   = 3389
-    to_port     = 3389
-    protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
-    description = "Allow RDP traffic on the VPN range"
-  }
   lifecycle {
-    create_before_destroy = false
+    create_before_destroy = true
   }
   tags = {
     Name               = "${var.environment}-ada-outsystems-js-sg"

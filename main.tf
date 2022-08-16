@@ -14,7 +14,7 @@ resource "aws_instance" "outsystems-dc" {
   ami                    = var.os_dc_ami_id
   instance_type          = var.os_dc_instance_type
   subnet_id              = element(var.ec2_private_subnets, count.index)
-  vpc_security_group_ids = ["${aws_security_group.DC-ec2-sg.id}"]
+  vpc_security_group_ids = ["${aws_security_group.dc_ec2_sg.id}"]
   key_name               = var.keypair
   iam_instance_profile   = var.iam_instance_profile_ec2
   user_data              = data.template_file.os-user-data-dc.rendered
@@ -63,13 +63,13 @@ resource "aws_instance" "outsystems-dc" {
 #Deploys the Outsystems jump server(s) and applies user data for platform to be installed.
 
 resource "aws_instance" "outsystems-js" {
-  count                  = var.os_js_ec2_count
-  ami                    = var.os_js_ami_id
-  instance_type          = var.os_js_instance_type
-  subnet_id              = element(var.ec2_public_subnets, count.index)
-  vpc_security_group_ids = ["${aws_security_group.JS-ec2-sg.id}"]
-  key_name             = var.keypair
-  iam_instance_profile = var.iam_instance_profile_ec2
+  count                       = var.os_js_ec2_count
+  ami                         = var.os_js_ami_id
+  instance_type               = var.os_js_instance_type
+  subnet_id                   = element(var.ec2_public_subnets, count.index)
+  vpc_security_group_ids      = ["${aws_security_group.js_ec2_sg.id}"]
+  key_name                    = var.keypair
+  iam_instance_profile        = var.iam_instance_profile_ec2
   associate_public_ip_address = true
   root_block_device {
     volume_size = "250"
@@ -107,7 +107,7 @@ resource "aws_lb_target_group" "Outsystems-lb-target-group" {
 resource "aws_lb" "Outsystems-alb" {
   name               = "${var.environment}-ada-outsystems-alb"
   internal           = "false"
-  security_groups    = ["${aws_security_group.elb-sg.id}"]
+  security_groups    = ["${aws_security_group.elb_sg.id}"]
   subnets            = var.alb_public_subnets
   ip_address_type    = "ipv4"
   load_balancer_type = "application"
@@ -175,7 +175,7 @@ resource "aws_db_instance" "mssql-rds" {
   copy_tags_to_snapshot     = "true"
   deletion_protection       = "false"
   db_subnet_group_name      = aws_db_subnet_group.mssql.name
-  vpc_security_group_ids    = ["${aws_security_group.rds-sg.id}"]
+  vpc_security_group_ids    = ["${aws_security_group.rds_sg.id}"]
   identifier                = "${var.environment}-ada-outsystems-os-mssql"
   parameter_group_name      = "default.sqlserver-se-15.0"
   option_group_name         = "${var.environment}-ada-sqlserver-se-15"
