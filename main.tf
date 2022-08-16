@@ -68,9 +68,9 @@ resource "aws_instance" "outsystems-js" {
   instance_type          = var.os_js_instance_type
   subnet_id              = element(var.ec2_public_subnets, count.index)
   vpc_security_group_ids = ["${aws_security_group.JS-ec2-sg.id}"]
-
   key_name             = var.keypair
   iam_instance_profile = var.iam_instance_profile_ec2
+  associate_public_ip_address = true
   root_block_device {
     volume_size = "250"
     encrypted   = "true"
