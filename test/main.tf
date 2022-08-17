@@ -5,6 +5,7 @@ module "outsystems" {
   keypair                  = var.keypair
   environment              = var.environment
   vpc_id                   = var.vpc_id
+  cidr_blocks              = var.cidr_blocks
   iam_instance_profile_ec2 = var.iam_instance_profile_ec2
   ec2_private_subnets      = var.ec2_private_subnets
   ec2_public_subnets       = var.ec2_public_subnets

@@ -16,6 +16,9 @@ variable "ec2_public_subnets" {
 variable "vpc_id" {
   default = ""
 }
+variable "cidr_blocks" {
+  default = ""
+}
 variable "environment" {
   default = "dev"
 }

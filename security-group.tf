@@ -11,7 +11,7 @@ resource "aws_security_group" "dc_ec2_sg" {
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow SSH traffic on the VPN range"
   }
   ingress {
@@ -19,7 +19,7 @@ resource "aws_security_group" "dc_ec2_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow http traffic on the VPN range"
   }
   ingress {
@@ -27,7 +27,7 @@ resource "aws_security_group" "dc_ec2_sg" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow http traffic on the VPN range"
   }
   ingress {
@@ -48,7 +48,7 @@ resource "aws_security_group" "dc_ec2_sg" {
     from_port   = 12002
     to_port     = 12002
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow OS service communication"
   }
   egress {
@@ -63,7 +63,7 @@ resource "aws_security_group" "dc_ec2_sg" {
     from_port   = 12000
     to_port     = 12000
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow OS deployment communication"
   }
   ingress {
@@ -71,7 +71,7 @@ resource "aws_security_group" "dc_ec2_sg" {
     from_port   = 12001
     to_port     = 12001
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow OS deployment communication"
   }
   ingress {
@@ -79,7 +79,7 @@ resource "aws_security_group" "dc_ec2_sg" {
     from_port   = 5672
     to_port     = 5672
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow cache validation to controller server"
   }
   ingress {
@@ -87,7 +87,7 @@ resource "aws_security_group" "dc_ec2_sg" {
     from_port   = 1433
     to_port     = 1433
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow SSH traffic on the VPN range"
   }
   ingress {
@@ -128,7 +128,7 @@ resource "aws_security_group" "dc_ec2_sg" {
 #     from_port   = 3389
 #     to_port     = 3389
 #     protocol    = "tcp"
-#     cidr_blocks = ["10.2.0.0/16"]
+#     cidr_blocks = ["${var.cidr_blocks}"]
 #     description = "Allow SSH traffic on the VPN range"
 #   }
 #   ingress {
@@ -136,7 +136,7 @@ resource "aws_security_group" "dc_ec2_sg" {
 #     from_port   = 80
 #     to_port     = 80
 #     protocol    = "tcp"
-#     cidr_blocks = ["10.2.0.0/16"]
+#     cidr_blocks = ["${var.cidr_blocks}"]
 #     description = "Allow http traffic on the VPN range"
 #   }
 #   ingress {
@@ -144,7 +144,7 @@ resource "aws_security_group" "dc_ec2_sg" {
 #     from_port   = 443
 #     to_port     = 443
 #     protocol    = "tcp"
-#     cidr_blocks = ["10.2.0.0/16"]
+#     cidr_blocks = ["${var.cidr_blocks}"]
 #     description = "Allow http traffic on the VPN range"
 #   }
 #   ingress {
@@ -165,7 +165,7 @@ resource "aws_security_group" "dc_ec2_sg" {
 #     from_port   = 12002
 #     to_port     = 12002
 #     protocol    = "tcp"
-#     cidr_blocks = ["10.2.0.0/16"]
+#     cidr_blocks = ["${var.cidr_blocks}"]
 #     description = "Allow OS service communication"
 #   }
 #   egress {
@@ -180,7 +180,7 @@ resource "aws_security_group" "dc_ec2_sg" {
 #     from_port   = 12000
 #     to_port     = 12000
 #     protocol    = "tcp"
-#     cidr_blocks = ["10.2.0.0/16"]
+#     cidr_blocks = ["${var.cidr_blocks}"]
 #     description = "Allow OS deployment communication"
 #   }
 #   ingress {
@@ -188,7 +188,7 @@ resource "aws_security_group" "dc_ec2_sg" {
 #     from_port   = 12001
 #     to_port     = 12001
 #     protocol    = "tcp"
-#     cidr_blocks = ["10.2.0.0/16"]
+#     cidr_blocks = ["${var.cidr_blocks}"]
 #     description = "Allow OS deployment communication"
 #   }
 #   ingress {
@@ -196,7 +196,7 @@ resource "aws_security_group" "dc_ec2_sg" {
 #     from_port   = 5672
 #     to_port     = 5672
 #     protocol    = "tcp"
-#     cidr_blocks = ["10.2.0.0/16"]
+#     cidr_blocks = ["${var.cidr_blocks}"]
 #     description = "Allow cache validation to controller server"
 #   }
 #   ingress {
@@ -204,7 +204,7 @@ resource "aws_security_group" "dc_ec2_sg" {
 #     from_port   = 1433
 #     to_port     = 1433
 #     protocol    = "tcp"
-#     cidr_blocks = ["10.2.0.0/16"]
+#     cidr_blocks = ["${var.cidr_blocks}"]
 #     description = "Allow SSH traffic on the VPN range"
 #   }
 #   lifecycle {
@@ -269,7 +269,7 @@ resource "aws_security_group" "rds_sg" {
     from_port   = 1433
     to_port     = 1433
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow mssql traffic on the VPN range"
   }
   egress {
@@ -310,7 +310,7 @@ resource "aws_security_group" "js_ec2_sg" {
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow SSH traffic on the VPN range"
   }
   ingress {
@@ -318,7 +318,7 @@ resource "aws_security_group" "js_ec2_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow http traffic on the VPN range"
   }
   ingress {
@@ -326,7 +326,7 @@ resource "aws_security_group" "js_ec2_sg" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["10.2.0.0/16"]
+    cidr_blocks = ["${var.cidr_blocks}"]
     description = "Allow http traffic on the VPN range"
   }
   egress {
