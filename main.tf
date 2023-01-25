@@ -62,25 +62,25 @@ resource "aws_instance" "outsystems-dc" {
 
 #Deploys the Outsystems jump server(s) and applies user data for platform to be installed.
 
-resource "aws_instance" "outsystems-js" {
-  count                       = var.os_js_ec2_count
-  ami                         = var.os_js_ami_id
-  instance_type               = var.os_js_instance_type
-  subnet_id                   = element(var.ec2_public_subnets, count.index)
-  vpc_security_group_ids      = ["${aws_security_group.js_ec2_sg.id}"]
-  key_name                    = var.keypair
-  iam_instance_profile        = var.iam_instance_profile_ec2
-  associate_public_ip_address = true
-  root_block_device {
-    volume_size = "250"
-    encrypted   = "true"
-  }
-  tags = {
-    Name        = "${var.environment}-ada-outsystems-jumpserver"
-    Environment = "${var.environment}"
-    Client      = "${var.client}"
-  }
-}
+# resource "aws_instance" "outsystems-js" {
+#   count                       = var.os_js_ec2_count
+#   ami                         = var.os_js_ami_id
+#   instance_type               = var.os_js_instance_type
+#   subnet_id                   = element(var.ec2_public_subnets, count.index)
+#   vpc_security_group_ids      = ["${aws_security_group.js_ec2_sg.id}"]
+#   key_name                    = var.keypair
+#   iam_instance_profile        = var.iam_instance_profile_ec2
+#   associate_public_ip_address = true
+#   root_block_device {
+#     volume_size = "250"
+#     encrypted   = "true"
+#   }
+#   tags = {
+#     Name        = "${var.environment}-ada-outsystems-jumpserver"
+#     Environment = "${var.environment}"
+#     Client      = "${var.client}"
+#   }
+# }
 
 
 
