@@ -3,9 +3,9 @@
 
 ###The Deployment Controller EC2 Security Group###
 resource "aws_security_group" "dc_ec2_sg" {
-  name        = "${var.environment}-ada-outsystems-dc-sg"
+  name        = "${var.environment}-euw1-outsystems-dc-sg"
   vpc_id      = var.vpc_id
-  description = "Deployment controller ec2 sercurity group"
+  description = "Deployment controller ec2 security group"
   ingress {
     #SSH using OpenVPN
     from_port   = 3389
@@ -31,8 +31,8 @@ resource "aws_security_group" "dc_ec2_sg" {
     description = "Allow http traffic on the VPN range"
   }
   ingress {
-    from_port       = 433
-    to_port         = 433
+    from_port       = 443
+    to_port         = 443
     protocol        = "tcp"
     security_groups = ["${aws_security_group.elb_sg.id}"]
     description     = "Load balancer access to OS server"
@@ -102,7 +102,7 @@ resource "aws_security_group" "dc_ec2_sg" {
     create_before_destroy = true
   }
   tags = {
-    Name               = "${var.environment}-ada-outsystems-dc-sg"
+    Name               = "${var.environment}-euw1-outsystems-dc-sg"
     "APPID"            = ""
     "BILLINGCODE"      = ""
     "BILLINGCONTACT"   = "managedcloud@deloittecloud.uk"
@@ -214,7 +214,7 @@ resource "aws_security_group" "dc_ec2_sg" {
 
 ###ELB-SG###
 resource "aws_security_group" "elb_sg" {
-  name        = "${var.environment}-ada-outsystems-elb-sg"
+  name        = "${var.environment}-euw1-outsystems-elb-sg"
   vpc_id      = var.vpc_id
   description = "Load balancer security group"
   ingress {
@@ -231,7 +231,6 @@ resource "aws_security_group" "elb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
     description = "Allow secure traffic publicly"
   }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -242,7 +241,7 @@ resource "aws_security_group" "elb_sg" {
     create_before_destroy = true
   }
   tags = {
-    Name               = "${var.environment}-ada-outsystems-elb-sg"
+    Name               = "${var.environment}-euw1-outsystems-elb-sg"
     "APPID"            = ""
     "BILLINGCODE"      = ""
     "BILLINGCONTACT"   = "managedcloud@deloittecloud.uk"
@@ -260,7 +259,7 @@ resource "aws_security_group" "elb_sg" {
 }
 ###RDS-SG###
 resource "aws_security_group" "rds_sg" {
-  name        = "${var.environment}-ada-outsystems-rds-sg"
+  name        = "${var.environment}-euw1-outsystems-rds-sg"
   description = "Allow required traffic for RDS"
   vpc_id      = var.vpc_id
 
@@ -283,7 +282,7 @@ resource "aws_security_group" "rds_sg" {
     create_before_destroy = true
   }
   tags = {
-    Name               = "${var.environment}-ada-outsystems-rds-sg"
+    Name               = "${var.environment}-euw1-outsystems-rds-sg"
     "APPID"            = ""
     "BILLINGCODE"      = ""
     "BILLINGCONTACT"   = "managedcloud@deloittecloud.uk"
@@ -302,7 +301,7 @@ resource "aws_security_group" "rds_sg" {
 
 ###The Jump Server EC2 Security Group###
 resource "aws_security_group" "js_ec2_sg" {
-  name        = "${var.environment}-ada-outsystems-js-sg"
+  name        = "${var.environment}-euw1-outsystems-js-sg"
   vpc_id      = var.vpc_id
   description = "Jump Server ec2 sercurity group"
   ingress {
@@ -340,7 +339,7 @@ resource "aws_security_group" "js_ec2_sg" {
     create_before_destroy = true
   }
   tags = {
-    Name               = "${var.environment}-ada-outsystems-js-sg"
+    Name               = "${var.environment}-euw1-outsystems-js-sg"
     "APPID"            = ""
     "BILLINGCODE"      = ""
     "BILLINGCONTACT"   = "managedcloud@deloittecloud.uk"
