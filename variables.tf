@@ -19,6 +19,7 @@ variable "rds-engine-version" {}
 variable "multi-az" {}
 variable "skip-final-snapshot" {}
 variable "rds_private_subnets" {}
+variable "rds_instance_type" {}
 
 # ###FrontEnd vars###
 # variable "os_fe_ec2_count" {
