@@ -122,7 +122,7 @@ resource "aws_db_instance" "mssql-rds" {
   engine                    = "sqlserver-se"
   engine_version            = var.rds-engine-version
   license_model             = "license-included"
-  instance_class            = var.rds-instance-type
+  instance_class            = var.rds_instance_type
   multi_az                  = var.multi-az
   username                  = "root"
   password                  = random_password.password-os.result
