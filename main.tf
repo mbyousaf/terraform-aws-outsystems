@@ -24,7 +24,6 @@ resource "aws_instance" "outsystems-dc" {
   }
   tags = {
     Name        = "${var.environment}-ada-outsystems-deployment-controller"
-    Environment = "${var.environment}"
   }
 }
 
@@ -55,9 +54,6 @@ resource "aws_lb" "Outsystems-alb" {
   subnets            = var.alb_public_subnets
   ip_address_type    = "ipv4"
   load_balancer_type = "application"
-  tags = {
-    Environment = "${var.environment}"
-  }
 }
 
 #The alb listeners
@@ -72,6 +68,7 @@ resource "aws_lb_listener" "Outsystems-alb-listener" {
     type             = "forward"
   }
 }
+
 resource "aws_lb_listener" "Outsystems-alb-listener-80" {
   load_balancer_arn = aws_lb.Outsystems-alb.arn
   port              = 80
@@ -141,9 +138,6 @@ resource "aws_db_instance" "mssql-rds" {
   timeouts {
     create = "120m"
     delete = "2h"
-  }
-  tags = {
-    Environment = "${var.environment}"
   }
 }
 
